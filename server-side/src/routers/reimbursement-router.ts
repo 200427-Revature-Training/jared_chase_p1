@@ -32,15 +32,15 @@ reimbRouter.get('/user', async (req, res, next) => {
     try{
         reimbs = await reimbService.getAllReimbByUser(user);
     }catch (err){
-        response.sendStatus(500);
+        res.sendStatus(500);
         console.log(err);
         return;
     }
 
     if(!reimbs) {
-        response.sendStatus(404);
+        res.sendStatus(404);
     }else{
-        response.json(reimbs);
+        res.json(reimbs);
     }
     next();
 });
@@ -57,15 +57,15 @@ reimbRouter.get('', async (req, res, next) => {
     try{
         reimbs = await reimbService.getAllReimbByStatus(status);
     }catch(err){
-        response.sendStatus(500);
+        res.sendStatus(500);
         console.log(err);
         return;
     }
 
     if(!reimbs){
-        response.sendStatus(404);
+        res.sendStatus(404);
     }else{
-        response.json(reimbs);
+        res.json(reimbs);
     }
     next();
 });
@@ -80,11 +80,11 @@ reimbRouter.post('', async (req, res, next) => {
 
     try{
         const newReimb = await reimbService.saveReimb(reimb);
-        response.status(201);
-        response.json(newReimb);
+        res.status(201);
+        res.json(newReimb);
         next();
     }catch(err){
-        response.sendStatus(500);
+        res.sendStatus(500);
         console.log(err);
         next();
     }
@@ -101,12 +101,12 @@ reimbRouter.patch('', async (req, res, next) => {
     try{
         const newReimb = reimbService.updateReimb(reimb);
         if(newReimb) {
-            response.json(newReimb);
+            res.json(newReimb);
         }else {
-            response.sendStatus(404);
+            res.sendStatus(404);
         }
     }catch(err) {
-        response.sendStatus(500);
+        res.sendStatus(500);
         console.log(err);
     }finally{
         next();
