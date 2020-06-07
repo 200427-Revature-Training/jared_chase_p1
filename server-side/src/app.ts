@@ -1,6 +1,7 @@
 import express from 'express';
 import { db } from './daos/db';
 import bodyParser from 'body-parser';
+import { reimbRouter } from './routers/reimbursement-router';
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
     next();
 });
+
+app.use('/reimbursement', reimbRouter);
 
 process.on('unhandledRejection', () => {
     db.end().then(() => {
