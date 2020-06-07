@@ -60,7 +60,7 @@ export async function saveReimb(reimb: Reimbursement): Promise<Reimbursement> {
 
     const result = await db.query<ReimbursementRow>(sql, [
         reimb.reimbAmount,
-        reimb.reimbSubmitted,
+        reimb.reimbSubmitted.toLocaleString(),
         reimb.reimbDescription,
         reimb.reimbReceipt,
         reimb.reimbAuthor,
@@ -77,9 +77,9 @@ export async function updateReimb(reimb: Reimbursement): Promise<Reimbursement> 
     set reimb_resolver = coalesce($2, reimb_resolver), set reimb_status_id = coalesce($3, reimb_status_id) \
     where user_first_name = $4`;
 
-    const resolved = reimb.reimbResolved && reimb.reimbResolved.toISOString();
+    const resolved = reimb.reimbResolved && reimb.reimbResolved.toLocaleString();
 
-    const params = [reimb.reimbResolved, reimb.reimbResolver, reimb.reimbStatusID];
+    const params = [resolved, reimb.reimbResolver, reimb.reimbStatusID];
 
     const result = await db.query<ReimbursementRow>(sql, params);
 
