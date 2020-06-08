@@ -9,17 +9,20 @@ export class Reimbursement{
     reimbResolver: number;
     reimbStatusID: number;
     reimbTypeID: number;
+    
 
-    static from(obj: any): Reimbursement {
+    static from(obj: ReimbursementRow): Reimbursement {
         const reimb = new Reimbursement(
-            obj.reimbID, obj.reimbAmount, obj.reimbSubmitted, obj.reimbResolved, obj.reimbDescription,
-            obj.reimbReceipt, obj.reimbAuthor, obj.reimbResolver, obj.reimbStatusID, obj.reimbTypeID
+            //obj.reimbID, obj.reimbAmount, obj.reimbSubmitted, obj.reimbResolved, obj.reimbDescription,
+            //obj.reimbReceipt, obj.reimbAuthor, obj.reimbResolver, obj.reimbStatusID, obj.reimbTypeID
+            obj.reimb_id, obj.reimb_amount, obj.reimb_submitted, obj.reimb_resolved, obj.reimb_description,
+            obj.reimb_receipt, obj.reimb_author, obj.reimb_resolver, obj.reimb_status_id, obj.reimb_type_id
         );
 
         return reimb;
     }
 
-    constructor(reimbID, reimbAmount, reimbSubmitted, reimbResolved, reimbDescription,
+    constructor(reimbID: number, reimbAmount, reimbSubmitted, reimbResolved, reimbDescription,
                 reimbReceipt, reimbAuthor, reimbResolver, reimbStatusID, reimbTypeID) {
         this.reimbID = reimbID;
         this.reimbAmount = reimbAmount;

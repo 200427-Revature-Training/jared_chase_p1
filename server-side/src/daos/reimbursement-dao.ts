@@ -2,7 +2,8 @@ import { db } from './db';
 import { Reimbursement, ReimbursementRow} from '../models/reimbursement';
 
 export async function getAllReimb(): Promise<Reimbursement[]> {
-    const sql = 'select * from ers_reimbursement order by reimb_submitted desc';
+    //const sql = 'select * from project1.ers_reimbursement order by reimb_submitted desc';
+    const sql = 'select * from project1.ers_reimbursement';
 
     const result = await db.query<ReimbursementRow>(sql, []);
 
@@ -20,8 +21,8 @@ export async function getAllReimbByUser(user: string): Promise<Reimbursement[]> 
         return undefined;
     }
 
-    const sql = `select ers_reimbursement.* from ers_reimbursement inner \
-    join ers_users on ers_reimbursement.reimb_author = ers_users.ers_users_id \
+    const sql = `select project1.ers_reimbursement.* from project1.ers_reimbursement inner \
+    join project1.ers_users on project1.ers_reimbursement.reimb_author = project1.ers_users.ers_users_id \
     where user_first_name = $1`;
 
     const result = await db.query<ReimbursementRow>(sql, [user]);
@@ -41,9 +42,9 @@ export async function userExists(firstName: string): Promise<boolean> {
 }
 
 export async function getAllReimbByStatus(status: string): Promise<Reimbursement[]> {
-    const sql = `select ers_reimbursement.* from ers_reimbursement inner \
-    join ers_reimbursement_status on ers_reimbursement.reimb_status_id = \
-    ers_reimbursement_status.reimb_status_id where reimb_status = $1`;
+    const sql = `select project1.ers_reimbursement.* from project1.ers_reimbursement inner \
+    join project1.ers_reimbursement_status on project1.ers_reimbursement.reimb_status_id = \
+    project1.ers_reimbursement_status.reimb_status_id where reimb_status = $1`;
 
     const result = await db.query<ReimbursementRow>(sql, [status]);
 
@@ -54,7 +55,7 @@ export async function getAllReimbByStatus(status: string): Promise<Reimbursement
 }
 
 export async function saveReimb(reimb: Reimbursement): Promise<Reimbursement> {
-    const sql = `insert into ers_reimbursement (reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_receipt, \
+    const sql = `insert into project1.ers_reimbursement (reimb_amount, reimb_submitted, reimb_resolved, reimb_description, reimb_receipt, \
         reimb_author, reimb_resolver, reimb_status_id, reimb_type_id) values 
         ($1, $2, null, $3, $4, $5, null, $6, $7) returning *`;
 
@@ -73,7 +74,7 @@ export async function saveReimb(reimb: Reimbursement): Promise<Reimbursement> {
 }
 
 export async function updateReimb(reimb: Reimbursement): Promise<Reimbursement> {
-    const sql = `update ers_reimbursement set reimb_resolved = coalesce($1, reimb_resolved), \
+    const sql = `update project1.ers_reimbursement set reimb_resolved = coalesce($1, reimb_resolved), \
     set reimb_resolver = coalesce($2, reimb_resolver), set reimb_status_id = coalesce($3, reimb_status_id) \
     where user_first_name = $4`;
 

@@ -10,10 +10,11 @@ export const reimbRouter = express.Router();
 */
 
 reimbRouter.get('', async (req, res, next) => {
+    console.log('something');
     try{
         const reimbs = await reimbService.getAllReimb();
+        //console.log('reimbs' + JSON.stringify([reimbs]));
         res.json(reimbs);
-        next();
     }catch(err) {
         console.log(err);
         res.sendStatus(500);
@@ -25,8 +26,9 @@ reimbRouter.get('', async (req, res, next) => {
     Retrieves all reimbursements for specific user
 */
 
-reimbRouter.get('/user', async (req, res, next) => {
-    const user = req.params.userFirstName;
+reimbRouter.get('/:user', async (req, res, next) => {
+    const user: string = req.params.user;
+    console.log('user here-->' + user);
     let reimbs: Reimbursement[];
 
     try{
@@ -50,8 +52,9 @@ reimbRouter.get('/user', async (req, res, next) => {
     Retrieves all reimbursements by status
 */
 
-reimbRouter.get('', async (req, res, next) => {
-    const status = req.params.reimbStatus;
+reimbRouter.get('/:status', async (req, res, next) => {
+    const status: string = req.params.status;
+    console.log('status here--> ' + status);
     let reimbs: Reimbursement[];
 
     try{
