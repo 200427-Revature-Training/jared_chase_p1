@@ -36,7 +36,7 @@ export async function getAllReimbByUser(user: string): Promise<Reimbursement[]> 
 
 //function to check if user exists and if name spelled correctly
 export async function userExists(firstName: string): Promise<boolean> {
-    const sql = 'select exists(select user_first_name from ers_users where user_first_name = $1;';
+    const sql = 'select exists(select user_first_name from project1.ers_users where user_first_name = $1)';
     const result = await db.query<Exists>(sql, [firstName]);
     return result.rows[0].exists;
 }
