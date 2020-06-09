@@ -2,8 +2,8 @@ import { db } from './db';
 import { Reimbursement, ReimbursementRow} from '../models/reimbursement';
 
 export async function getAllReimb(): Promise<Reimbursement[]> {
-    //const sql = 'select * from project1.ers_reimbursement order by reimb_submitted desc';
-    const sql = 'select * from project1.ers_reimbursement';
+    const sql = 'select * from project1.ers_reimbursement order by reimb_submitted desc';
+    //const sql = 'select * from project1.ers_reimbursement';
 
     const result = await db.query<ReimbursementRow>(sql, []);
 

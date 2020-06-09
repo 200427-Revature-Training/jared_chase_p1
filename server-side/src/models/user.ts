@@ -1,4 +1,4 @@
-export class Users {
+export class User {
     ersUsersID: number;
     ersUsername: string;
     ersPassword: string;
@@ -7,10 +7,12 @@ export class Users {
     userEmail: string;
     userRoleID: number;
 
-    static from(obj: any): Users {
-        const user  = new Users(
-            obj.ersUsersID, obj.ersUsername, obj.ersPassword, obj.userFirstName, obj.userLastName, 
-            obj.userEmail, obj.userRoleID
+    static from(obj: UserRow): User {
+        const user  = new User(
+            //obj.ersUsersID, obj.ersUsername, obj.ersPassword, obj.userFirstName, obj.userLastName, 
+            //obj.userEmail, obj.userRoleID
+            obj.ers_users_id, obj.ers_username, obj.ers_password, obj.user_first_name, obj.user_last_name,
+            obj.user_email, obj.user_role_id
         );
         return user;
     }
@@ -26,7 +28,7 @@ export class Users {
     }
 }
 
-export interface UsersRows{
+export interface UserRow{
     ers_users_id: number;
     ers_username: string;
     ers_password: string;
