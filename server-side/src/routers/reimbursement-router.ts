@@ -1,4 +1,4 @@
-import express, { response } from 'express';
+import express from 'express';
 import * as reimbService from '../services/reimbursement-service';
 import { Reimbursement } from '../models/reimbursement';
 
@@ -6,7 +6,7 @@ export const reimbRouter = express.Router();
 
 /*
     http://localhost:3000/reimbursements
-    Retrieves an array of people from database
+    Retrieves an array of reimbursements from database
 */
 
 reimbRouter.get('', async (req, res, next) => {
@@ -22,7 +22,7 @@ reimbRouter.get('', async (req, res, next) => {
 });
 
 /*
-    http://localhost:3000/reimbursements/user
+    http://localhost:3000/reimbursement/user
     Retrieves all reimbursements for specific user
 */
 
@@ -48,7 +48,7 @@ reimbRouter.get('/:user', async (req, res, next) => {
 });
 
 /*
-    http://localhost:3000/reimbursements/status
+    http://localhost:3000/reimbursement/status
     Retrieves all reimbursements by status
 */
 
@@ -74,7 +74,7 @@ reimbRouter.get('/:status', async (req, res, next) => {
 });
 
 /*
-    http://localhost:3000/reimbursements
+    http://localhost:3000/reimbursement
     Creates new reimbursement
 */
 
@@ -94,7 +94,7 @@ reimbRouter.post('', async (req, res, next) => {
 });
 
 /*
-    http://localhost:3000/reimbursements
+    http://localhost:3000/reimbursement
     Updates existing reimbursement
 */
 
