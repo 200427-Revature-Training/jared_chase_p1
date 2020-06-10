@@ -1,8 +1,11 @@
+require('dotenv').config();
+
 import express from 'express';
 import * as userService from '../services/user-service';
 import * as userDao from '../daos/user-dao';
 import { User } from '../models/user';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const userRouter = express.Router();
 
@@ -96,7 +99,12 @@ userRouter.post('/login', async (req, res, next) => {
         }
         if(await bcrypt.compare(req.body.ersPassword, user.ersPassword)) {
             console.log('Logged in!!');
-            res.sendStatus(200);
+            res.status(200);
+
+            const username = req.body.ersUsername;
+            const accessToken = jwt.sign(username, process.env.ACCESS_TOKEN_SECRET)
+            res.json(accessToken);
+            console.log('accessToken --> ' + accessToken);
         }else {
             console.log('Access denied');
             res.send('Access denied')
@@ -104,6 +112,5 @@ userRouter.post('/login', async (req, res, next) => {
     }catch(err) {
         res.sendStatus(500);
         console.log(err);
-    }
+    }   
 });
-
