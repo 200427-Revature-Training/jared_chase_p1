@@ -1,6 +1,8 @@
 import express from 'express';
 import * as userService from '../services/user-service';
+import * as userDao from '../daos/user-dao';
 import { User } from '../models/user';
+import bcrypt from 'bcrypt';
 
 export const userRouter = express.Router();
 
@@ -46,10 +48,29 @@ userRouter.get('/:username', async (req, res, next) => {
     next();
 });
 
-userRouter.post('', async (req, res, next) => {
-    const user = req.body;
+/*
+    http://localhost:3000/user
+    Saves user securely with hashed password
+*/
 
+userRouter.post('', async (req, res, next) => {
+    //const user = req.body;
+    console.log('something');
     try{
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(req.body.ersPassword, salt);
+        console.log('salt---> ' + salt);
+        console.log('hashed password---> ' + hashedPassword);
+
+        const user: any = {
+            ersUsername: req.body.ersUsername,
+            ersPassword: hashedPassword,
+            userFirstName: req.body.userFirstName,
+            userLastName: req.body.userLastName,
+            userEmail: req.body.userEmail,
+            userRoleID: req.body.userRoleID
+        } 
+
         const newUser = await userService.saveUser(user);
         res.status(201);
         res.json(newUser);
@@ -60,3 +81,29 @@ userRouter.post('', async (req, res, next) => {
         next();
     }
 });
+
+/*
+    http://localhost:3000/user/login
+    Post request to log someone in
+*/
+
+userRouter.post('/login', async (req, res, next) => {
+    try {
+        const user = await userDao.getUserByUsername(req.body.ersUsername);
+        if(!user) {
+            console.log('no user');
+            res.sendStatus(400);
+        }
+        if(await bcrypt.compare(req.body.ersPassword, user.ersPassword)) {
+            console.log('Logged in!!');
+            res.sendStatus(200);
+        }else {
+            console.log('Access denied');
+            res.send('Access denied')
+        }
+    }catch(err) {
+        res.sendStatus(500);
+        console.log(err);
+    }
+});
+
