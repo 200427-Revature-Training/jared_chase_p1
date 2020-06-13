@@ -1,0 +1,12 @@
+#navbar{
+    background-color: #ffffffa4;
+}
+
+hr{
+    margin-top: 8;
+    margin-bottom: 4;
+}
+
+.top-row{
+    display: inline-flex;
+}
