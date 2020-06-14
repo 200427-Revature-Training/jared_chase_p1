@@ -22,8 +22,34 @@ reimbRouter.get('', async (req, res, next) => {
 });
 
 /*
+    http://localhost:3000/reimbursement/username
+    Retrieves all reimbursements for specific user by username
+*/
+
+reimbRouter.get('/:username', async (req, res, next) => {
+    const username: string = req.params.username;
+    console.log('username here-->' + username);
+    let reimbs: Reimbursement[];
+
+    try{
+        reimbs = await reimbService.getAllReimbByUsername(username);
+    }catch (err){
+        res.sendStatus(500);
+        console.log(err);
+        return;
+    }
+
+    if(!reimbs) {
+        res.sendStatus(404);
+    }else{
+        res.json(reimbs);
+    }
+    next();
+});
+
+/*
     http://localhost:3000/reimbursement/user
-    Retrieves all reimbursements for specific user
+    Retrieves all reimbursements for specific user by first name
 */
 
 reimbRouter.get('/:user', async (req, res, next) => {

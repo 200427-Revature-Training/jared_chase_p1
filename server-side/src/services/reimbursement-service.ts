@@ -1,8 +1,13 @@
 import { Reimbursement } from '../models/reimbursement';
+import { UpdatedReimbursement } from '../models/updated-reimbursement';
 import * as reimbDao from '../daos/reimbursement-dao';
 
 export function getAllReimb(): Promise<Reimbursement[]> {
     return reimbDao.getAllReimb();
+}
+
+export function getAllReimbByUsername(username: string): Promise<Reimbursement[]> {
+    return reimbDao.getAllReimbByUsername(username);
 }
 
 export function getAllReimbByUser(user: string): Promise<Reimbursement[]> {
@@ -28,14 +33,11 @@ export function saveReimb(reimb: any): Promise<Reimbursement> {
         }
 }
 
-export function updateReimb(input: any): Promise<Reimbursement> {
-    const resolved = input.reimbResolved && new Date(input.reimbResolved);
-    const submitted = input.reimbSubmitted && new Date(input.reimbSubmitted);
+export function updateReimb(input: any): Promise<UpdatedReimbursement> {
+    const reimResolved = input.reimbResolved && new Date(input.reimbResolved);
 
-    const updatedReimb = new Reimbursement(
-        input.reimbID, input.reimbAmount, submitted, 
-        resolved, input.reimbDescription, input.reimbReceipt, 
-        input.reimbAuthor, input.reimbResolver, input.reimbStatusID, input.reimbTypeID
+    const updatedReimb = new UpdatedReimbursement(
+        input.reimbID, reimResolved, input.reimbResolver, input.reimbStatusID
     );
 
     if(!updatedReimb.reimbID) {
