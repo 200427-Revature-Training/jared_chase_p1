@@ -18,3 +18,12 @@ h1{
 #bottom-bar{
     background-color: darkslategray;
 }
+
+.modal-text{
+    color: black;
+}
+
+.modal-form{
+    margin-left: 0;
+    width: 100%
+}

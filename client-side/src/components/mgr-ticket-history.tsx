@@ -1,8 +1,16 @@
-import React from 'react';
-import { Table, Button, DropdownButton, Dropdown, Form, FormControl } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Table, Button, DropdownButton, Dropdown, Form, FormControl, Modal, Col } from 'react-bootstrap';
 import './home.css';
 
 export const MGRTicketHistoryComponent: React.FC = () => {
+    const [show, setShow] = useState(false);
+    const [mgrShow, mgrSetShow] = useState(false);
+
+    const modalOpen = () => setShow(true);
+    const modalClose = () => setShow(false);
+    const mgrModalOpen = () => mgrSetShow(true);
+    const mgrModalClose = () => mgrSetShow(false);
+
     return(
         <div>
             <header>
@@ -17,10 +25,10 @@ export const MGRTicketHistoryComponent: React.FC = () => {
                                 <Button variant="info">Return to Home</Button>
                             </th>
                             <th colSpan={4}>
-                            <Form inline>
+                            {/*<Form inline>
                                 <Button variant="info">Search</Button>
                                 <FormControl type="text" placeholder="Search by first name" className="mr-sm-2" />
-                            </Form>
+                            </Form>*/}
                             </th>
                             <th></th>
                             <th></th>
@@ -57,133 +65,57 @@ export const MGRTicketHistoryComponent: React.FC = () => {
                             <td>Food</td>
                             <td>2020-06-10</td>
                             <td>
-                                <Button variant="outline-info">Expand</Button>
+                                <Button variant="outline-info" onClick={modalOpen} >Expand</Button>
+                                <Modal className="modal-text" show={show} onHide={modalClose}>
+                                    <Modal.Header>
+                                        <Modal.Title>Description</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>alan excitement printable instruction yards long voting watched formal customize sentences tree freedom two here print practitioners sufficiently telling drop meaningful repair immediately statement picks crazy reached vision kennedy fig indexes metabolism hearings reasonable discretion december reduces highways trail across stewart population flags muscles picture diary geek astrology hearing commissions computed providing soap computation readers summary acres drops depends handbook messages clocks specific batch metres willing enable</Modal.Body>
+                                </Modal>
                             </td>
                             <td>receipt link</td>
                             <td>Pending</td>
                             <td></td>
                             <td></td>
                             <td>
-                                <Button variant="outline-info">Update</Button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>$200</td>
-                            <td>Food</td>
-                            <td>2020-06-10</td>
-                            <td>
-                                <Button variant="outline-info">Expand</Button>
-                            </td>
-                            <td>receipt link</td>
-                            <td>Pending</td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <Button variant="outline-info">Update</Button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>$200</td>
-                            <td>Food</td>
-                            <td>2020-06-10</td>
-                            <td>
-                                <Button variant="outline-info">Expand</Button>
-                            </td>
-                            <td>receipt link</td>
-                            <td>Pending</td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <Button variant="outline-info">Update</Button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>$200</td>
-                            <td>Food</td>
-                            <td>2020-06-10</td>
-                            <td>
-                                <Button variant="outline-info">Expand</Button>
-                            </td>
-                            <td>receipt link</td>
-                            <td>Pending</td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <Button variant="outline-info">Update</Button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>$200</td>
-                            <td>Food</td>
-                            <td>2020-06-10</td>
-                            <td>
-                                <Button variant="outline-info">Expand</Button>
-                            </td>
-                            <td>receipt link</td>
-                            <td>Pending</td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <Button variant="outline-info">Update</Button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>$200</td>
-                            <td>Food</td>
-                            <td>2020-06-10</td>
-                            <td>
-                                <Button variant="outline-info">Expand</Button>
-                            </td>
-                            <td>receipt link</td>
-                            <td>Pending</td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <Button variant="outline-info">Update</Button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>$200</td>
-                            <td>Food</td>
-                            <td>2020-06-10</td>
-                            <td>
-                                <Button variant="outline-info">Expand</Button>
-                            </td>
-                            <td>receipt link</td>
-                            <td>Pending</td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <Button variant="outline-info">Update</Button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>$200</td>
-                            <td>Food</td>
-                            <td>2020-06-10</td>
-                            <td>
-                                <Button variant="outline-info">Expand</Button>
-                            </td>
-                            <td>receipt link</td>
-                            <td>Pending</td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <Button variant="outline-info">Update</Button>
+                                <Button variant="outline-info" onClick={mgrModalOpen} >Update</Button>
+                                <div>
+                                <Modal className="modal-text" show={mgrShow} onHide={mgrModalClose}>
+                                <Form className="modal-form">
+                                    <Modal.Header>
+                                        <Modal.Title>Update Ticket</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                            <Form.Group className="align-items-left">
+                                                <Form.Label>Resolver's Name</Form.Label>
+                                                <Form.Control readOnly defaultValue="FirstName LastName" />
+                                            </Form.Group>
+
+                                            <Form.Group>
+                                                <Form.Label>Resolved On</Form.Label>
+                                                <Form.Control type="date" />
+                                            </Form.Group>
+
+                                            <Form.Group>
+                                                <Form.Label>Updated Status</Form.Label>
+                                                <Form.Control as="select" defaultValue="Pending">
+                                                    <option>Pending</option>
+                                                    <option>Approved</option>
+                                                    <option>Denied</option>
+                                                </Form.Control>
+                                            </Form.Group>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                    <Button variant="secondary" onClick={mgrModalClose}>
+                                        Cancel
+                                    </Button>
+                                    <Button variant="info" onClick={mgrModalClose}>
+                                        Submit
+                                    </Button>
+                                    </Modal.Footer>
+                                </Form>
+                                </Modal>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -205,10 +137,6 @@ export const MGRTicketHistoryComponent: React.FC = () => {
                         </tr>
                     </tbody>
                 </Table>
-                {/*<div id="bottom-bar" className="fixed-bottom">              
-                    <Button size="lg" className="float-left" variant="outline-light">Back to Home</Button>
-                    <Button size="lg" className="float-right" variant="outline-light">Log Out</Button>
-                </div>*/}
             </div>
         </div>
     )

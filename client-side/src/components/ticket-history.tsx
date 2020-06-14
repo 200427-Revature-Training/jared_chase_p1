@@ -1,7 +1,12 @@
-import React from 'react';
-import { Table, Button, DropdownButton, Dropdown, } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Table, Button, DropdownButton, Dropdown, Modal } from 'react-bootstrap';
 
 export const TicketHistoryComponent: React.FC = () => {
+    const [show, setShow] = useState(false);
+
+    const modalOpen = () => setShow(true);
+    const modalClose = () => setShow(false);
+
     return(
         <div>
             <header>
@@ -53,7 +58,13 @@ export const TicketHistoryComponent: React.FC = () => {
                             <td>Food</td>
                             <td>2020-06-10</td>
                             <td>
-                                <Button variant="outline-info">Expand</Button>
+                                <Button variant="outline-info" onClick={modalOpen} >Expand</Button>
+                                <Modal className="modal-text" show={show} onHide={modalClose}>
+                                    <Modal.Header>
+                                        <Modal.Title>Description</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>alan excitement printable instruction yards long voting watched formal customize sentences tree freedom two here print practitioners sufficiently telling drop meaningful repair immediately statement picks crazy reached vision kennedy fig indexes metabolism hearings reasonable discretion december reduces highways trail across stewart population flags muscles picture diary geek astrology hearing commissions computed providing soap computation readers summary acres drops depends handbook messages clocks specific batch metres willing enable</Modal.Body>
+                                </Modal>
                             </td>
                             <td>receipt link</td>
                             <td>Pending</td>
