@@ -10,6 +10,11 @@ const port = process.env.PORT || 3000;
 
 app.set('port', port);
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+    next();
+});
+
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {

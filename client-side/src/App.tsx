@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { HomeComponent } from './components/home';
 import { LoginComponent } from './components/login';
 import { TicketHistoryComponent } from './components/ticket-history';
@@ -15,7 +15,7 @@ function App() {
     <Router>
       <React.Fragment>
         <Switch>
-          <Route path="/login">
+          <Route exact path="/">
             <LoginComponent/>
           </Route>
           <Route path="/home">

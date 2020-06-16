@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Button, DropdownButton, Dropdown, Modal } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export const TicketHistoryComponent: React.FC = () => {
     const [show, setShow] = useState(false);
@@ -18,7 +19,7 @@ export const TicketHistoryComponent: React.FC = () => {
                     <thead>
                         <tr>
                             <th colSpan={2}>
-                                <Button variant="info">Return to Home</Button>
+                                <Button as={Link} to="/home" variant="info">Return to Home</Button>
                             </th>
                             <th></th>
                             <th></th>

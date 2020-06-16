@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Form, Container } from 'react-bootstrap';
 import './login.css';
+import { Link } from 'react-router-dom';
 
 export const LoginComponent: React.FC = () => {
     return(
@@ -23,7 +24,7 @@ export const LoginComponent: React.FC = () => {
                         <Form.Label>Password</Form.Label>
                         <Form.Control size="lg" type="password" placeholder="Enter password" />
                     </Form.Group>
-                    <Button id="login-button" size="lg" variant="outline-light" type="submit">
+                    <Button as={Link} to="/home" id="login-button" size="lg" variant="outline-light" type="submit">
                         Continue
                     </Button>
                 </Form>

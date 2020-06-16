@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-import express from 'express';
+import express, { NextFunction } from 'express';
 import * as userService from '../services/user-service';
 import * as userDao from '../daos/user-dao';
 import { User } from '../models/user';
@@ -114,3 +114,42 @@ userRouter.post('/login', async (req, res, next) => {
         console.log(err);
     }   
 });
+
+
+async function authorization (req, res, next) {
+    try {
+        const token = req.header('token');
+
+        if (!token) {
+            return res.status(403).json('Not Authorized');
+        }
+
+        const payload: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+        req.user = payload.user;
+
+    } catch (err) {
+      console.log(err.message);
+      return res.status(403).json('Not Authorized');
+    }
+
+    next();
+};
+
+/*
+function authenticateToken(req: express.Request, res: express.Response<any>, next: NextFunction) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if(!token) {
+        return res.sendStatus(401);
+    }
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, username) => {
+        if(err) {
+            return res.sendStatus(403);
+        }
+        req.username = username;
+        next();
+    })
+}
+*/
